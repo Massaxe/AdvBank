@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace Slut
 {
-    public partial class Form1 : Form
+    public partial class LoginForm : Form
     {
-        public Form1()
+        SocketManager sM;
+
+        public LoginForm()
         {
             InitializeComponent();
         }
@@ -25,6 +27,15 @@ namespace Slut
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void login_btn_Click(object sender, EventArgs e)
+        {
+            SocketManager.StartClient(tbx_name.Text);
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
         }
     }
 }
