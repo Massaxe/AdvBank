@@ -24,17 +24,18 @@ namespace Slut
         {
             SocketManager.StartClient($"init_user_data,{StateData.personId}");
             StateData.userForm = this;
+            InitUserView(this);
         }
         public static void SendMessageToUser(string messageToSend)
         {
             MessageBox.Show(messageToSend);
            
         }
-        public void InitUserView()
+        public void InitUserView(User userForm)
         {
-            MessageBox.Show("InitUserView");
             lbl_name.Text = StateData.name;
-            lbl_name.Text = "Test";
+            lbl_person_id.Text = StateData.personId;
+            lbl_balance.Text = StateData.totalBalance.ToString();
         }
 
         private void lbl_name_Click(object sender, EventArgs e)

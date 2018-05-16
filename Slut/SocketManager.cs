@@ -106,7 +106,7 @@ namespace Slut
             StateData.name = contentArray[1];
             StateData.personId = contentArray[2];
             StateData.accounts = AccountSplit(contentArray);
-            StateData.userForm.InitUserView();
+            //StateData.userForm.InitUserView();
         }
 
         private static List<Account> AccountSplit(string[] messageArray)
@@ -115,7 +115,9 @@ namespace Slut
             for (int i = 3; i < messageArray.Length; i++)
             {
                 string[] accountArray = messageArray[i].Split('-');
-                accountList.Add(new Account(accountArray[0], accountArray[1], double.Parse(accountArray[2])));
+                double balance = double.Parse(accountArray[2]);
+                StateData.totalBalance += balance;
+                accountList.Add(new Account(accountArray[0], accountArray[1], balance));
             }
             return accountList;
         }

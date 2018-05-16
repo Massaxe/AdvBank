@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lbl_name = new System.Windows.Forms.Label();
-            this.tbx_person_id = new System.Windows.Forms.Label();
+            this.lbl_person_id = new System.Windows.Forms.Label();
             this.lbl_balance = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -43,14 +43,14 @@
             this.lbl_name.Text = "---";
             this.lbl_name.Click += new System.EventHandler(this.lbl_name_Click);
             // 
-            // tbx_person_id
+            // lbl_person_id
             // 
-            this.tbx_person_id.AutoSize = true;
-            this.tbx_person_id.Location = new System.Drawing.Point(28, 48);
-            this.tbx_person_id.Name = "tbx_person_id";
-            this.tbx_person_id.Size = new System.Drawing.Size(31, 13);
-            this.tbx_person_id.TabIndex = 1;
-            this.tbx_person_id.Text = "--------";
+            this.lbl_person_id.AutoSize = true;
+            this.lbl_person_id.Location = new System.Drawing.Point(28, 48);
+            this.lbl_person_id.Name = "lbl_person_id";
+            this.lbl_person_id.Size = new System.Drawing.Size(31, 13);
+            this.lbl_person_id.TabIndex = 1;
+            this.lbl_person_id.Text = "--------";
             // 
             // lbl_balance
             // 
@@ -67,7 +67,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 209);
             this.Controls.Add(this.lbl_balance);
-            this.Controls.Add(this.tbx_person_id);
+            this.Controls.Add(this.lbl_person_id);
             this.Controls.Add(this.lbl_name);
             this.Name = "User";
             this.Text = "v";
@@ -80,7 +80,7 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_name;
-        private System.Windows.Forms.Label tbx_person_id;
+        private System.Windows.Forms.Label lbl_person_id;
         private System.Windows.Forms.Label lbl_balance;
     }
 }
