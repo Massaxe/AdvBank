@@ -16,27 +16,12 @@ namespace Slut
         public LoginForm()
         {
             InitializeComponent();
+            StateData.loginForm = this;
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void login_btn_Click(object sender, EventArgs e)
         {
             SocketManager.StartClient($"{tbx_person_id.Text},{tbx_name.Text},login");
         }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_reg_Click(object sender, EventArgs e)
         {
             SocketManager.StartClient($"{tbx_person_id.Text},{tbx_name.Text},reg");

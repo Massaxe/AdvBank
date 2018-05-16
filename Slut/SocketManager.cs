@@ -11,8 +11,10 @@ namespace Slut
 {
     class SocketManager
     {
+
         public static void StartClient(string sendData)
         {
+            StateData.userForm = new User();
             // Data buffer for incoming data.  
             byte[] bytes = new byte[1024];
 
@@ -38,7 +40,7 @@ namespace Slut
                         sender.RemoteEndPoint.ToString());
 
                     // Encode the data string into a byte array.  
-                    byte[] msg = Encoding.UTF8.GetBytes($"{sendData}<EOF>");
+                    byte[] msg = Encoding.UTF8.GetBytes($"{sendData}<EOM>");
 
                     // Send the data through the socket.  
                     int bytesSent = sender.Send(msg);
@@ -46,6 +48,8 @@ namespace Slut
                     // Receive the response from the remote device.  
                     int bytesRec = sender.Receive(bytes);
                     string messageInHuman = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    //messageInHuman.Replace("<EOM>", "");
+                    Debug.WriteLine(messageInHuman);
                     HandleData(messageInHuman);
                     
                     
@@ -76,14 +80,58 @@ namespace Slut
         }
         public static void HandleData(string messageInHuman)
         {
-            if (messageInHuman == "login_success")
+            if (messageInHuman.IndexOf("login_success") > -1)
             {
-                LoginForm.SendMessageToUser("login_success");
+                SavePersonId(GetPersonIdFromMessage(messageInHuman)[1]);
             }
-            else if (messageInHuman == "login_failed")
+            else if (messageInHuman.IndexOf("login_failed") > -1)
             {
                 LoginForm.SendMessageToUser("login_failed");
             }
+            else if(messageInHuman.IndexOf("login_admin") > -1)
+            {
+                LoginForm.SendMessageToUser("login_admin");
+            }
+            else if(messageInHuman.IndexOf("user_data") > -1)
+            {
+                Debug.WriteLine("|DATA| user_data");
+                HandleInitUserData(messageInHuman);
+            }
+        }
+
+        public static void HandleInitUserData(string content)
+        {
+            User.SendMessageToUser(content);
+            string[] contentArray = content.Split(',');
+            StateData.name = contentArray[1];
+            StateData.personId = contentArray[2];
+            StateData.accounts = AccountSplit(contentArray);
+            StateData.userForm.InitUserView();
+        }
+
+        private static List<Account> AccountSplit(string[] messageArray)
+        {
+            List<Account> accountList = new List<Account>();
+            for (int i = 3; i < messageArray.Length; i++)
+            {
+                string[] accountArray = messageArray[i].Split('-');
+                accountList.Add(new Account(accountArray[0], accountArray[1], double.Parse(accountArray[2])));
+            }
+            return accountList;
+        }
+        public static string[] GetPersonIdFromMessage(string content)
+        {
+            return content.Split(',');
+        }
+        public static void SavePersonId(string id)
+        {
+            StateData.personId = id;
+            ShowUserForm();
+        }
+        public static void ShowUserForm()
+        {
+            StateData.userForm.Show();
+            StateData.loginForm.Visible = false;
         }
     }
 }
