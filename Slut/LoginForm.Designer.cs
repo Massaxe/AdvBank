@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.btn_reg = new System.Windows.Forms.Button();
             this.tbx_name = new System.Windows.Forms.TextBox();
-            this.tbx_password = new System.Windows.Forms.TextBox();
+            this.tbx_person_id = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_login = new System.Windows.Forms.Button();
@@ -45,7 +45,7 @@
             this.btn_reg.TabIndex = 0;
             this.btn_reg.Text = "Register";
             this.btn_reg.UseVisualStyleBackColor = true;
-            this.btn_reg.Click += new System.EventHandler(this.button1_Click);
+            this.btn_reg.Click += new System.EventHandler(this.btn_reg_Click);
             // 
             // tbx_name
             // 
@@ -54,12 +54,12 @@
             this.tbx_name.Size = new System.Drawing.Size(139, 20);
             this.tbx_name.TabIndex = 1;
             // 
-            // tbx_password
+            // tbx_person_id
             // 
-            this.tbx_password.Location = new System.Drawing.Point(42, 107);
-            this.tbx_password.Name = "tbx_password";
-            this.tbx_password.Size = new System.Drawing.Size(139, 20);
-            this.tbx_password.TabIndex = 2;
+            this.tbx_person_id.Location = new System.Drawing.Point(42, 107);
+            this.tbx_person_id.Name = "tbx_person_id";
+            this.tbx_person_id.Size = new System.Drawing.Size(139, 20);
+            this.tbx_person_id.TabIndex = 2;
             // 
             // label1
             // 
@@ -76,9 +76,10 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(39, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Password";
+            this.label2.Text = "Person ID";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btn_login
             // 
@@ -98,7 +99,7 @@
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbx_password);
+            this.Controls.Add(this.tbx_person_id);
             this.Controls.Add(this.tbx_name);
             this.Controls.Add(this.btn_reg);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -115,7 +116,7 @@
 
         private System.Windows.Forms.Button btn_reg;
         private System.Windows.Forms.TextBox tbx_name;
-        private System.Windows.Forms.TextBox tbx_password;
+        private System.Windows.Forms.TextBox tbx_person_id;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_login;

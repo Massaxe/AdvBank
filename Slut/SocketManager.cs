@@ -45,8 +45,10 @@ namespace Slut
 
                     // Receive the response from the remote device.  
                     int bytesRec = sender.Receive(bytes);
-                    Console.WriteLine("Echoed test = {0}",
-                        Encoding.UTF8.GetString(bytes, 0, bytesRec));
+                    string messageInHuman = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    HandleData(messageInHuman);
+                    
+                    
 
                     // Release the socket.  
                     sender.Shutdown(SocketShutdown.Both);
@@ -70,6 +72,17 @@ namespace Slut
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+        }
+        public static void HandleData(string messageInHuman)
+        {
+            if (messageInHuman == "login_success")
+            {
+                LoginForm.SendMessageToUser("login_success");
+            }
+            else if (messageInHuman == "login_failed")
+            {
+                LoginForm.SendMessageToUser("login_failed");
             }
         }
     }
