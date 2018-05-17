@@ -18,5 +18,28 @@ namespace Slut
             this.accountType = accountType;
             this.accountBalance = accountBalance;
         }
+
+        public double AccountBalance
+        {
+            get
+            {
+                return accountBalance;
+            }
+        }
+        public string AccountId
+        {
+            get
+            {
+                return accountId;
+            }
+        }
+        public string AccountType
+        {
+            get
+            {
+                return accountType;
+            }
+        }
+
     }
 }

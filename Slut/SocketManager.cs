@@ -14,6 +14,7 @@ namespace Slut
 
         public static void StartClient(string sendData)
         {
+
             StateData.userForm = new User();
             // Data buffer for incoming data.  
             byte[] bytes = new byte[1024];
@@ -105,14 +106,14 @@ namespace Slut
             string[] contentArray = content.Split(',');
             StateData.name = contentArray[1];
             StateData.personId = contentArray[2];
-            StateData.accounts = AccountSplit(contentArray);
-            //StateData.userForm.InitUserView();
+            StateData.accounts = AccountSplit(contentArray, 3);
+            StateData.userForm.InitUserView();
         }
 
-        private static List<Account> AccountSplit(string[] messageArray)
+        private static List<Account> AccountSplit(string[] messageArray, int startVal)
         {
             List<Account> accountList = new List<Account>();
-            for (int i = 3; i < messageArray.Length; i++)
+            for (int i = startVal; i < messageArray.Length; i++)
             {
                 string[] accountArray = messageArray[i].Split('-');
                 double balance = double.Parse(accountArray[2]);
@@ -121,6 +122,8 @@ namespace Slut
             }
             return accountList;
         }
+
+
         public static string[] GetPersonIdFromMessage(string content)
         {
             return content.Split(',');
