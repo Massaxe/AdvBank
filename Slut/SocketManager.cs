@@ -107,6 +107,8 @@ namespace Slut
             StateData.name = contentArray[1];
             StateData.personId = contentArray[2];
             StateData.accounts = AccountSplit(contentArray, 3);
+            Debug.WriteLine("HandleInitUserData");
+            
             StateData.userForm.InitUserView();
         }
 

@@ -16,20 +16,20 @@ namespace Slut
         public User()
         {
             InitializeComponent();
+            StateData.userForm = this;
         }
         
         public static CreateAccountForm CAF;
 
-        private void user_Load(object sender, EventArgs e)
+        public void user_Load(object sender, EventArgs e)
         {
             SocketManager.StartClient($"init_user_data,{StateData.personId}");
-            StateData.userForm = this;
+            //StateData.userForm = this;
             InitUserView();
         }
         public static void SendMessageToUser(string messageToSend)
         {
             MessageBox.Show(messageToSend);
-           
         }
         public void InitUserView()
         {
@@ -41,11 +41,14 @@ namespace Slut
         public void DisplayAccounts()
         {
             lb_accountListBox.BeginUpdate();
+            lb_accountListBox.Items.Clear();
             foreach (Account a in StateData.accounts)
             {
                 lb_accountListBox.Items.Add($"ID: {a.AccountId} | Balance: {a.AccountBalance}");
             }
             lb_accountListBox.EndUpdate();
+            lb_accountListBox.Update();
+            lb_accountListBox.Refresh();
         }
         private void lbl_name_Click(object sender, EventArgs e)
         {
@@ -63,13 +66,14 @@ namespace Slut
             SocketManager.StartClient($"send_money,{StateData.personId},{lb_accountListBox.SelectedIndex},{tbx_sendAmount.Text},{tbx_sendMoneyId.Text}");
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void btn_removeAccount_Click(object sender, EventArgs e)
         {
-
+            SocketManager.StartClient($"remove_account,{StateData.personId},{lb_accountListBox.SelectedIndex}");
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btn_refresh_Click(object sender, EventArgs e)
         {
+            InitUserView();
 
         }
     }
