@@ -23,14 +23,15 @@ namespace Slut
 
         public void user_Load(object sender, EventArgs e)
         {
+            //Vid load, be om info.
             SocketManager.StartClient($"init_user_data,{StateData.personId}");
-            //StateData.userForm = this;
             InitUserView();
         }
         public static void SendMessageToUser(string messageToSend)
         {
             MessageBox.Show(messageToSend);
         }
+        //Assigns info till komponenter.
         public void InitUserView()
         {
             lbl_name.Text = StateData.name;
@@ -38,6 +39,7 @@ namespace Slut
             lbl_balance.Text = StateData.totalBalance.ToString();
             DisplayAccounts();
         }
+        //Visa och cleara listbox
         public void DisplayAccounts()
         {
             lb_accountListBox.BeginUpdate();
@@ -54,7 +56,7 @@ namespace Slut
         {
             
         }
-
+        //Skapa konto
         private void btn_createAccount_Click(object sender, EventArgs e)
         {
             CAF = new CreateAccountForm();
@@ -71,6 +73,7 @@ namespace Slut
             SocketManager.StartClient($"remove_account,{StateData.personId},{lb_accountListBox.SelectedIndex}");
         }
 
+        //Uppdatera med info från StateData
         private void btn_refresh_Click(object sender, EventArgs e)
         {
             InitUserView();

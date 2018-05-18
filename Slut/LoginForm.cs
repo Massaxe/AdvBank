@@ -18,6 +18,7 @@ namespace Slut
             InitializeComponent();
             StateData.loginForm = this;
         }
+        //Skickar information via SocketManager till servern som lyssnar. Format av information finns i server koden. 
         private void login_btn_Click(object sender, EventArgs e)
         {
             SocketManager.StartClient($"{tbx_person_id.Text},{tbx_name.Text},login");

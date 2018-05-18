@@ -21,6 +21,7 @@ namespace Slut
         {
 
         }
+        //Skapa konto
         public void CreateNewAccount()
         {
             string accountType = "-1";

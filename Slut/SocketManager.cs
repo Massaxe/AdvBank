@@ -16,23 +16,21 @@ namespace Slut
         {
 
             StateData.userForm = new User();
-            // Data buffer for incoming data.  
+            // Buffert
             byte[] bytes = new byte[1024];
 
-            // Connect to a remote device.  
             try
             {
-                // Establish the remote endpoint for the socket.  
-                // This example uses port 11000 on the local computer.  
+                // Uni IP  
                 IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, 25565);
 
-                // Create a TCP/IP  socket.  
+                // Socket
                 Socket sender = new Socket(ipAddress.AddressFamily,
                     SocketType.Stream, ProtocolType.Tcp);
 
-                // Connect the socket to the remote endpoint. Catch any errors.  
+                // Anslut med try-catch 
                 try
                 {
                     sender.Connect(remoteEP);
@@ -40,22 +38,21 @@ namespace Slut
                     Console.WriteLine("Socket connected to {0}",
                         sender.RemoteEndPoint.ToString());
 
-                    // Encode the data string into a byte array.  
+                    // Encode
                     byte[] msg = Encoding.UTF8.GetBytes($"{sendData}<EOM>");
 
-                    // Send the data through the socket.  
+                    // Skicka 
                     int bytesSent = sender.Send(msg);
 
-                    // Receive the response from the remote device.  
+                    // Ta emot  
                     int bytesRec = sender.Receive(bytes);
                     string messageInHuman = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-                    //messageInHuman.Replace("<EOM>", "");
                     Debug.WriteLine(messageInHuman);
                     HandleData(messageInHuman);
                     
                     
 
-                    // Release the socket.  
+                    // Släpp.  
                     sender.Shutdown(SocketShutdown.Both);
                     sender.Close();
 
@@ -79,6 +76,8 @@ namespace Slut
                 Console.WriteLine(e.ToString());
             }
         }
+
+        //Gör samma som på servern.
         public static void HandleData(string messageInHuman)
         {
             if (messageInHuman.IndexOf("login_success") > -1)
@@ -95,11 +94,11 @@ namespace Slut
             }
             else if(messageInHuman.IndexOf("user_data") > -1)
             {
-                Debug.WriteLine("|DATA| user_data");
                 HandleInitUserData(messageInHuman);
             }
         }
 
+        //Sparar information till StateData. Läses senare av från Form för att visa upp för användare.
         public static void HandleInitUserData(string content)
         {
             User.SendMessageToUser(content);
@@ -107,11 +106,10 @@ namespace Slut
             StateData.name = contentArray[1];
             StateData.personId = contentArray[2];
             StateData.accounts = AccountSplit(contentArray, 3);
-            Debug.WriteLine("HandleInitUserData");
-            
             StateData.userForm.InitUserView();
         }
 
+        //Eftersom data är i inline string form måste den hanteras. Konto på annat sätt än överigt på grund av annat format.
         private static List<Account> AccountSplit(string[] messageArray, int startVal)
         {
             List<Account> accountList = new List<Account>();
@@ -130,11 +128,13 @@ namespace Slut
         {
             return content.Split(',');
         }
+        //StateData save
         public static void SavePersonId(string id)
         {
             StateData.personId = id;
             ShowUserForm();
         }
+        //Visa UserForm om login lyckas.
         public static void ShowUserForm()
         {
             StateData.userForm.Show();
